@@ -17,9 +17,9 @@ function SignUpView() {
     try {
       setLoading(true);
       const { user, session, errors } = await altogic.auth.signUpWithEmail(
-        name.value,
         email.value,
-        password.value
+        password.value,
+        name.value
       );
 
       if (errors) {
