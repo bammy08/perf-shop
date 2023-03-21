@@ -46,9 +46,6 @@ const Login = () => {
           Already have an account? Sign in for a more personalized experience
         </p>
         <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto bg-slate-200 mt-5 rounded-md">
-          {/* <div className="md:w-[67%] lg:w-[50%] mb-12 md:mb-6">
-          <img src={logo} alt="key" className="w-full rounded-2xl" />
-        </div> */}
           <div className="w-full md:w-[67%] lg:w-[40%] lg:ml-20">
             <form onSubmit={submitForm}>
               <label

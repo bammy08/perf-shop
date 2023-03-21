@@ -8,8 +8,8 @@ const Navbar = () => {
   return (
     <>
       <CategoryCarousel />
-      <div className=" flex border-b-2 p-4">
-        <div className="hidden sm:flex w-full space-x-10 p-4">
+      <div className=" flex border-b-2 p-2">
+        <div className="hidden sm:flex w-full space-x-6 p-4">
           <div className="dropdown dropdown-bottom hover:text-pink-600">
             <label tabIndex={0} className="cursor-pointer">
               Women

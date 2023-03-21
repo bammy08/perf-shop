@@ -121,7 +121,7 @@ function Header() {
                     <Link
                       Link
                       to="/register"
-                      onClick={() => setNavbar(!navbar)}
+                      // onClick={() => setNavbar(!navbar)}
                     >
                       <motion.img
                         whileTap={{ scale: 0.6 }}

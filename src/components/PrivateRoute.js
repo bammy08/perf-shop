@@ -1,29 +1,31 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../contexts/Auth.context';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import { selectEmail } from '../redux/features/authSlice';
 
 function PrivateRoute({ children }) {
-  const { auth } = useAuthContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (auth === null) {
-      // Navigate to sign in, if the user has not session
-      navigate('/sign-in');
-    }
-  }, [auth]);
-
+  const userEmail = useSelector(selectEmail);
+  if (userEmail === 'bammydele88@gmail.com') {
+    return children;
+  }
   return (
-    <div>
-      {auth === undefined ? (
-        <div>Loading...</div>
-      ) : auth ? (
-        children
-      ) : (
-        <div>You are redirecting to the login...</div>
-      )}
-    </div>
+    <section>
+      <div>
+        <h2>Permission Denied to unauthorized users.</h2>
+
+        <Link to="/">
+          <button>&larr; Back To Home</button>
+        </Link>
+      </div>
+    </section>
   );
+}
+export function PrivateRouteLink({ children }) {
+  const userEmail = useSelector(selectEmail);
+  if (userEmail === 'bammydele88@gmail.com') {
+    return children;
+  }
+  return null;
 }
 
 export default PrivateRoute;

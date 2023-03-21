@@ -1,21 +1,14 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Activities from '../components/Activities';
+import Hero from '../components/Hero';
 
-function IndexView() {
+const Home = () => {
   return (
-    <>
-      <div className="flex items-center justify-center gap-4 h-screen">
-        <Link className="border px-4 py-2 font-medium text-xl" to="/magic-link">
-          Login With Magic Link
-        </Link>
-
-        <Link className="border px-4 py-2 font-medium text-xl" to="/sign-in">
-          Sign In
-        </Link>
-        <Link className="border px-4 py-2 font-medium text-xl" to="/sign-up">
-          Sign Up
-        </Link>
-      </div>
-    </>
+    <div>
+      <Hero />
+      <Activities />
+    </div>
   );
-}
-export default IndexView;
+};
+
+export default Home;
