@@ -43,10 +43,10 @@ const Navbar = () => {
           </li>
           <li
             className={`text-lg cursor-pointer text-center border-b-2 border-red-200 bg-white ${
-              pathMatchRoute('/admin/add-product') &&
+              pathMatchRoute('/admin/add-product/ADD ') &&
               ' text-pink-700 font-bold uppercase '
             }`}
-            onClick={() => navigate('/admin/add-product')}
+            onClick={() => navigate('/admin/add-product/ADD')}
           >
             Add Product
           </li>
