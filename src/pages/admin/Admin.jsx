@@ -8,7 +8,7 @@ import ViewProducts from '../../components/admin/ViewProducts';
 
 const Admin = () => {
   return (
-    <div className="flex flex-row bg-green-300 h-screen w-full overflow-hidden">
+    <div className="flex flex-row   w-full overflow-hidden">
       <div className="bg-pink-300 border-2 border-blue-500">
         <Navbar />
       </div>
