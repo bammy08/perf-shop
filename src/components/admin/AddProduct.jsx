@@ -1,9 +1,16 @@
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { db, storage } from '../../firebase/config';
+import { selectProducts } from '../../redux/features/productSlice';
 import Loading from '../Loading';
 
 const initialState = {
@@ -16,12 +23,26 @@ const initialState = {
 };
 
 function AddProduct() {
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [product, setProduct] = useState({
-    ...initialState,
+  const { id } = useParams();
+  const products = useSelector(selectProducts);
+  const productEdit = products.find((item) => item.id === id);
+  console.log(productEdit);
+
+  const [product, setProduct] = useState(() => {
+    const newState = detectForm(id, { ...initialState }, productEdit);
+    return newState;
   });
+
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  function detectForm(id, f1, f2) {
+    if (id === 'ADD') {
+      return f1;
+    }
+    return f2;
+  }
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -83,12 +104,46 @@ function AddProduct() {
     }
   };
 
+  const editProduct = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (product.imgURL !== productEdit.imgURL) {
+      const storageRef = ref(storage, productEdit.imgURL);
+      deleteObject(storageRef);
+    }
+    try {
+      // Add a new document in collection "cities"
+      setDoc(doc(db, 'products', 'id'), {
+        name: product.name,
+        price: Number(product.price),
+        category: product.category,
+        desc: product.desc,
+        brand: product.brand,
+        imgUrl: product.imgUrl,
+        createdAt: productEdit.createdAt,
+        editedAt: Timestamp.now().toDate(),
+      });
+      setIsLoading(false);
+      toast.success('Product edited successfully');
+      navigate('/admin/view-products');
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(error.message);
+    }
+  };
+
   return (
     <>
       {isLoading && <Loading />}
-      <div className="w-full bg-slate-700/80 text-white mx-20 mt-5 text-center p-3 rounded-xl">
-        <h1>Add a new product</h1>
-        <form onSubmit={addProduct}>
+      <div className="">
+        <h1 className="text-center text-xl font-semibold mt-3">
+          {detectForm(id, 'Add New Product', 'Edit Product')}
+        </h1>
+        <form
+          className="w-full bg-slate-700/80 text-white mx-20 mt-5 text-center p-3 rounded-xl"
+          onSubmit={detectForm(id, addProduct, editProduct)}
+        >
           <div className="form-control w-full">
             <label className="label">
               <span className="label-text text-white">Product Name</span>
@@ -129,7 +184,7 @@ function AddProduct() {
               value={product.category}
               onChange={(e) => handleInputChange(e)}
             >
-              <option disabled selected>
+              <option value="" disabled>
                 Select a product category
               </option>
               <option>MEN</option>
@@ -177,7 +232,9 @@ function AddProduct() {
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <button className="w-full mt-4">Add Product</button>
+          <button className="w-full mt-4">
+            {detectForm(id, 'Add Product', 'Edit Product')}
+          </button>
         </form>
       </div>
     </>
