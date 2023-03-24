@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 import { db, storage } from '../../firebase/config';
 import { selectProducts } from '../../redux/features/productSlice';
 import Loading from '../Loading';
@@ -232,9 +233,9 @@ function AddProduct() {
               onChange={handleInputChange}
             ></textarea>
           </div>
-          <button className="w-full mt-4">
+          <motion.button whileTap={{ scale: 0.6 }} className="w-full mt-4">
             {detectForm(id, 'Add Product', 'Edit Product')}
-          </button>
+          </motion.button>
         </form>
       </div>
     </>

@@ -21,7 +21,9 @@ const TopBar = () => {
           <AiFillPhone size={20} className="mr-2 text-pink-900" />
           <p>+234-813-691-3387</p>
         </div>
-        <button className="">Place an Order</button>
+        <button className="px-4 py-2 text-white border bg-gradient-to-r from-purple-700 to-pink-700 rounded">
+          Place an Order
+        </button>
       </div>
     </div>
   );

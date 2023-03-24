@@ -80,7 +80,7 @@ const New = () => {
     }
   };
   return (
-    <nav className="w-full min-h-[60px] flex justify-between items-center absolute  text-white bg-gray-700/80 sticky top-0 z-50">
+    <nav className="w-full min-h-[60px] flex justify-between items-center absolute  text-white bg-gray-700/80 sticky top-0 z-50 px-3">
       <ul className="hidden sm:flex sm:w-full font-bold mt-3">
         <li
           className={`pb-6 text-lg cursor-pointer text-center ${

@@ -20,7 +20,9 @@ const Hero = () => {
             refresh your mind
           </p>
         </div>
-        <button className="absolute top-[70%] ml-4">Explore Now</button>
+        <button className="absolute top-[70%] ml-4 px-4 py-2 text-white border bg-gradient-to-r from-purple-700 to-pink-700 rounded">
+          Explore Now
+        </button>
       </div>
     </div>
   );

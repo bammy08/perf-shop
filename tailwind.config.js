@@ -5,5 +5,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [require('daisyui', 'flowbite/plugin')],
+  plugins: [require('daisyui', 'flowbite/plugin', 'tailwind-scrollbar-hide')],
 };
